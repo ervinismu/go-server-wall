@@ -13,7 +13,7 @@ func main() {
 
   r := gin.Default()
   r.GET("/", func(c *gin.Context) {
-    c.String(200, "Hello World! this is first deploy automation heroku!")
+    c.String(200, "Hello World! this is first deploy automation heroku broo!")
   })
   r.Run(":" + port)
 }
