@@ -1,9 +1,2 @@
 language: go
 
-go:
-  - 1.9.x
-
-notifications:
-  slack: inwall:54ClO66olACB7Fw74DxN2ouj
-    on_success: always
-    on_failure: always
