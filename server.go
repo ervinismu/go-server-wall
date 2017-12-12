@@ -1,15 +1,19 @@
 package main
 
 import (
-  "fmt"
-  "html"
-  "log"
-  "net/http"
+	"github.com/gin-gonic/gin"
+	"os"
 )
 
-func main() {
-  http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-  fmt.Fprint(w, "Hello, from golang!", html.EscapeString(r.URL.Path))
-})
-  log.Fatal(http.ListenAndServe(":8080", nil))
+func main() {  
+  port := os.Getenv("PORT")
+  if port == "" {
+    port = "8080"
+  }
+
+  r := gin.Default()
+  r.GET("/", func(c *gin.Context) {
+    c.String(200, "Hello World! this is first deploy automation heroku!")
+  })
+  r.Run(":" + port)
 }
