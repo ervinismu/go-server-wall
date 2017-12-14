@@ -1,3 +1,8 @@
+sudo: false
+
 language: go
+
 notifications:
   slack: inwall:w90uHODTUnWrvWEmZS96Bt5s
+
+script: go test ./...
