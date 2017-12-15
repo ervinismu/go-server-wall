@@ -3,6 +3,6 @@ sudo: false
 language: go
 
 notifications:
-  slack: inwall:w90uHODTUnWrvWEmZS96Bt5s
+  slack: $SLACK_ROOM
 
 script: go test ./...
