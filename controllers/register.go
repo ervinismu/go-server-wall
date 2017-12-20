@@ -1,11 +1,12 @@
 package controllers
 
 import (
-	"golang.org/x/crypto/bcrypt"
 	"regexp"
-	"github.com/ervinismu/go-server-wall/template"
+
 	"github.com/ervinismu/go-server-wall/models"
+	"github.com/ervinismu/go-server-wall/template"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 )
 
 // Function for Register new user
@@ -29,7 +30,7 @@ func Register(c *gin.Context) {
 		res.Status = "FAILED"
 		data := template.Response(&res)
 		c.JSON(400, data)
-	} else if  user.Password != user.PasswordConfirm {
+	} else if user.Password != user.PasswordConfirm {
 		res.Code = "401"
 		res.Message = "Password confirmation not same!"
 		res.Status = "FAILED"
