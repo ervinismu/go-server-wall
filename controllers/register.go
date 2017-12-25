@@ -4,7 +4,6 @@ import (
 	"regexp"
 
 	"github.com/ervinismu/go-server-wall/models"
-	"github.com/ervinismu/go-server-wall/template"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -22,25 +21,33 @@ func Register(c *gin.Context) {
 		res.Code = "401"
 		res.Message = "Field can not be empty!"
 		res.Status = "FAILED"
-		data := template.Response(&res)
+		data := map[string]interface{}{
+			"data": res,
+		}
 		c.JSON(400, data)
 	} else if user.Password == "" {
 		res.Code = "401"
 		res.Message = "Field can not be empty!"
 		res.Status = "FAILED"
-		data := template.Response(&res)
+		data := map[string]interface{}{
+			"data": res,
+		}
 		c.JSON(400, data)
 	} else if user.Password != user.PasswordConfirm {
 		res.Code = "401"
 		res.Message = "Password confirmation not same!"
 		res.Status = "FAILED"
-		data := template.Response(&res)
+		data := map[string]interface{}{
+			"data": res,
+		}
 		c.JSON(400, data)
 	} else if !checkRegex.MatchString(user.Email) {
 		res.Code = "401"
 		res.Message = "Invalid format email!"
 		res.Status = "FAILED"
-		data := template.Response(&res)
+		data := map[string]interface{}{
+			"data": res,
+		}
 		c.JSON(400, data)
 	} else if err := db.Where("email = ?", user.Email).First(&user).Error; err != nil {
 		plainPassword := user.Password
@@ -49,7 +56,9 @@ func Register(c *gin.Context) {
 			res.Code = "401"
 			res.Message = "Failed encrypt password!"
 			res.Status = "FAILED"
-			data := template.Response(&res)
+			data := map[string]interface{}{
+				"data": res,
+			}
 			c.JSON(400, data)
 		}
 		user.Password = string(hashPassword)
@@ -68,7 +77,9 @@ func Register(c *gin.Context) {
 			res.Message = "Register Success!"
 			res.Status = "SUCCESS"
 			res.Token = user.Token
-			data := template.Response(&res)
+			data := map[string]interface{}{
+				"data": res,
+			}
 			c.JSON(200, data)
 			return
 		}
@@ -76,7 +87,9 @@ func Register(c *gin.Context) {
 		res.Code = "401"
 		res.Message = "Email has been used!"
 		res.Status = "FAILED"
-		data := template.Response(&res)
+		data := map[string]interface{}{
+			"data": res,
+		}
 		c.JSON(400, data)
 	}
 }

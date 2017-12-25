@@ -5,7 +5,6 @@ import (
 	"encoding/base64"
 
 	"github.com/ervinismu/go-server-wall/models"
-	"github.com/ervinismu/go-server-wall/template"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -25,7 +24,9 @@ func Login(c *gin.Context) {
 		res.Code = "401"
 		res.Message = "Email doesn't exist!"
 		res.Status = "FAILED"
-		data := template.Response(&res)
+		data := map[string]interface{}{
+			"data": res,
+		}
 		c.JSON(401, data)
 	} else {
 		if CheckPasswordHash(password, user.Password) {
@@ -40,7 +41,9 @@ func Login(c *gin.Context) {
 			res.Message = "Login Success!"
 			res.Status = "SUCCESS"
 			res.Token = user.Token
-			data := template.Response(&res)
+			data := map[string]interface{}{
+				"data": res,
+			}
 			c.JSON(200, data)
 			return
 		}
@@ -49,7 +52,9 @@ func Login(c *gin.Context) {
 		res.Message = "Your password is wrong!"
 		res.Token = user.Token
 		res.Status = "FAILED"
-		data := template.Response(&res)
+		data := map[string]interface{}{
+			"data": res,
+		}
 		c.JSON(400, data)
 	}
 }

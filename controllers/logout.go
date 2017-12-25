@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"github.com/ervinismu/go-server-wall/template"
 	"github.com/ervinismu/go-server-wall/models"
 	"github.com/gin-gonic/gin"
 )
@@ -19,14 +18,18 @@ func Logout(c *gin.Context) {
 		res.Code = "401"
 		res.Message = "You are not login!"
 		res.Status = "FAILED"
-		data := template.Response(&res)
+		data := map[string]interface{}{
+			"data": res,
+		}
 		c.JSON(200, data)
 	} else if err := db.Select("token").Where("token = ?", token).First(&user).Error; err != nil {
 		// check if token not in db
 		res.Code = "401"
 		res.Message = "Your token invalid!"
 		res.Status = "FAILED"
-		data := template.Response(&res)
+		data := map[string]interface{}{
+			"data": res,
+		}
 		c.JSON(200, data)
 	} else {
 		// if contain token and token in db
@@ -34,7 +37,9 @@ func Logout(c *gin.Context) {
 		res.Code = "200"
 		res.Message = "Logout Succes!"
 		res.Status = "SUCCESS"
-		data := template.Response(&res)
+		data := map[string]interface{}{
+			"data": res,
+		}
 		c.JSON(200, data)
 	}
 }
