@@ -1,8 +1,11 @@
 # go-server-wall
 
-### How to use ?
+### Pre
 - Install golang
 - Instal vendor tools like Govendor, Godeps (optional)
 - Postman (optional for testing)
 
-### Author : ervinismu | workhard.ervin@gmail.com
+### Run
+- go run server.go
+
+#### Author : ervinismu | workhard.ervin@gmail.com
