@@ -15,6 +15,10 @@ func InitDb() *gorm.DB {
 
 	var err error
 	var user models.User
+	var model models.Model
+	var paymentStatus models.PaymentStatus
+	var userDetail models.UserDetail
+	var wall models.Wall
 
 	host := os.Getenv("DATABASE_URL")
 	if host == "" {
@@ -22,7 +26,7 @@ func InitDb() *gorm.DB {
 	}
 
 	db, err := gorm.Open("postgres", host)
-	db.AutoMigrate(user)
+	db.AutoMigrate(user, model, paymentStatus, userDetail, wall)
 	if err != nil {
 		fmt.Println(err)
 	} else {
